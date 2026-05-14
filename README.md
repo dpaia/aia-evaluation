@@ -1,28 +1,29 @@
 # aia-evaluation
 
 Lightweight bootstrap installer for running the AIA SWE-Bench evaluation
-pipeline locally, without cloning the `ai-assistant-pipelines` repo.
+pipeline locally.
 
 This repo contains only **one** file:
 
-- **`install.sh`** — downloads the launcher (`aia-evaluation.sh`) from the
-  canonical location in `JetBrains/ai-assistant-pipelines` and installs it
-  into `~/.local/bin/` as the `aia-evaluation` command.
+- **`install.sh`** — downloads the launcher from its canonical upstream
+  location and installs it into `~/.local/bin/` as the `aia-evaluation`
+  command.
 
-The launcher itself, plus the per-platform `.pyz` files it fetches, live in
-the private GitHub repo. There is no duplication or sync.
+The launcher itself, plus the per-platform `.pyz` files it fetches, live
+upstream. There is no duplication or sync.
 
 ---
 
 ## Prerequisites
 
 1. **Python 3.12** on `PATH` — `brew install python@3.12` or `uv python install 3.12`.
-2. **GitHub authentication** — either an active `gh auth login` session **or**
-   `GH_TOKEN` exported in your shell. Any PAT with `Contents: read` on
-   `JetBrains/ai-assistant-pipelines` works.
+2. **GitHub authentication for the JetBrains org** — either an active
+   `gh auth login` session **or** `GH_TOKEN` exported in your shell. Any PAT
+   that grants you access to the JetBrains GitHub organization works; no
+   special per-repo permissions are needed.
 
    Required both at install time (to pull the launcher script) and at runtime
-   (to pull the `.pyz` from the private repo's release).
+   (to pull the `.pyz`).
 
 ---
 
@@ -30,35 +31,6 @@ the private GitHub repo. There is no duplication or sync.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/dpaia/aia-evaluation/main/install.sh | bash
-```
-
-The installer drops `aia-evaluation` into `~/.local/bin/`. If that directory
-isn't on your `PATH`, the script prints exactly what to add to your
-`~/.zshrc` / `~/.bashrc`:
-
-```bash
-export PATH="$HOME/.local/bin:$PATH"
-```
-
-After sourcing your shell config (or opening a fresh terminal), confirm:
-
-```bash
-which aia-evaluation
-# → /Users/<you>/.local/bin/aia-evaluation
-```
-
-### Installing to a different directory
-
-```bash
-AIA_PREFIX=/usr/local/bin curl -fsSL https://raw.githubusercontent.com/dpaia/aia-evaluation/main/install.sh | bash
-```
-
-### Pinning to a specific branch (for testing)
-
-The default branch (`local-run` for now) can be overridden:
-
-```bash
-AIA_BRANCH=main curl -fsSL https://raw.githubusercontent.com/dpaia/aia-evaluation/main/install.sh | bash
 ```
 
 ---
@@ -118,14 +90,14 @@ Pre-built `.pyz` files exist for:
 
 Other host platforms (Intel Mac, Linux ARM, Windows) aren't built. Running
 `aia-evaluation` on those produces a clear "release does not contain asset
-…" error. If you need another target, file a request in the upstream repo.
+…" error. If you need another target, file a request upstream.
 
 ---
 
 ## Updating
 
 Re-run the install command — `install.sh` overwrites the launcher with the
-latest copy from the private repo's default branch. The `.pyz` itself is
+latest copy from the upstream default branch. The `.pyz` itself is
 auto-updated on every invocation when upstream publishes a new build (the
 launcher compares the cached `VERSION` against the release's `VERSION`).
 
@@ -138,11 +110,46 @@ rm -rf ~/.cache/aia-evaluation
 
 ---
 
-## Why a private upstream and a public installer?
+## Install options
 
-The pipeline code lives in a private repo (`JetBrains/ai-assistant-pipelines`),
-which is why anything that touches it (the launcher source, the `.pyz`) needs
-GitHub auth. This installer repo (`dpaia/aia-evaluation`) is intentionally
+### Verifying the install
+
+The installer drops `aia-evaluation` into `~/.local/bin/`. If that directory
+isn't on your `PATH`, the script prints exactly what to add to your
+`~/.zshrc` / `~/.bashrc`:
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+After sourcing your shell config (or opening a fresh terminal), confirm:
+
+```bash
+which aia-evaluation
+# → /Users/<you>/.local/bin/aia-evaluation
+```
+
+### Installing to a different directory
+
+```bash
+AIA_PREFIX=/usr/local/bin curl -fsSL https://raw.githubusercontent.com/dpaia/aia-evaluation/main/install.sh | bash
+```
+
+### Pinning to a specific branch (for testing)
+
+The default branch (`local-run` for now) can be overridden:
+
+```bash
+AIA_BRANCH=main curl -fsSL https://raw.githubusercontent.com/dpaia/aia-evaluation/main/install.sh | bash
+```
+
+---
+
+## Why a JetBrains-only upstream and a public installer?
+
+The pipeline code lives in a JetBrains-internal repo, which is why anything
+that touches it (the launcher source, the `.pyz`) needs GitHub auth against
+the JetBrains org. This installer repo (`dpaia/aia-evaluation`) is intentionally
 public so that anyone can fetch the bootstrap `install.sh` anonymously — past
 the bootstrap step the same `GH_TOKEN` / `gh` session powers both install and
 runtime.
