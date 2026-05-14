@@ -18,7 +18,7 @@ set -euo pipefail
 
 REPO="${AIA_REPO:-JetBrains/ai-assistant-pipelines}"
 BRANCH="${AIA_BRANCH:-local-run}"
-LAUNCHER_PATH_IN_REPO="executable/aia-evaluation.sh"
+LAUNCHER_PATH_IN_REPO="launcher/aia-evaluation.sh"
 PREFIX="${AIA_PREFIX:-$HOME/.local/bin}"
 TARGET="$PREFIX/aia-evaluation"
 
