@@ -1,7 +1,7 @@
 # aia-evaluation
 
-Lightweight bootstrap installer for running the AIA SWE-Bench evaluation
-pipeline locally.
+Lightweight bootstrap installer for running the AIA agentic evaluation
+pipelines.
 
 This repo contains only **one** file:
 
@@ -37,7 +37,7 @@ curl -fsSL https://raw.githubusercontent.com/dpaia/aia-evaluation/main/install.s
 
 ## Usage
 
-CLI flags are forwarded directly to the upstream `swe_pipeline`:
+CLI flags are forwarded directly to the upstream agentic pipeline:
 
 ```bash
 aia-evaluation --lang java --runner JUNIE_ACP --debug
@@ -68,7 +68,7 @@ automatically. Any value you pass is respected as-is.
    - Self-heals ZenML state (runs `zenml login jcp-prod` /
      `zenml project set ai-assistant` / `zenml stack set …` for you, using
      the bundled `zenml` CLI inside the `.pyz`).
-   - Runs the actual SWE-Bench pipeline.
+   - Runs the actual agentic pipeline.
 
 ## What happens on subsequent runs
 
