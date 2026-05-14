@@ -3,7 +3,7 @@
 Lightweight bootstrap installer for running the AIA SWE-Bench evaluation
 pipeline locally, without cloning the `ai-assistant-pipelines` repo.
 
-This Space repo contains only **one** file:
+This repo contains only **one** file:
 
 - **`install.sh`** — downloads the launcher (`aia-evaluation.sh`) from the
   canonical location in `JetBrains/ai-assistant-pipelines` and installs it
@@ -29,7 +29,7 @@ the private GitHub repo. There is no duplication or sync.
 ## Install
 
 ```bash
-curl -fsSL https://git.jetbrains.team/ai-assistant/aia-evaluation/raw/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/dpaia/aia-evaluation/main/install.sh | bash
 ```
 
 The installer drops `aia-evaluation` into `~/.local/bin/`. If that directory
@@ -50,13 +50,13 @@ which aia-evaluation
 ### Installing to a different directory
 
 ```bash
-AIA_PREFIX=/usr/local/bin curl -fsSL https://git.jetbrains.team/ai-assistant/aia-evaluation/raw/main/install.sh | bash
+AIA_PREFIX=/usr/local/bin curl -fsSL https://raw.githubusercontent.com/dpaia/aia-evaluation/main/install.sh | bash
 ```
 
 ### Pinning to a specific branch (for testing)
 
 ```bash
-AIA_BRANCH=local-run curl -fsSL https://git.jetbrains.team/ai-assistant/aia-evaluation/raw/main/install.sh | bash
+AIA_BRANCH=local-run curl -fsSL https://raw.githubusercontent.com/dpaia/aia-evaluation/main/install.sh | bash
 ```
 
 ---
@@ -138,8 +138,9 @@ rm -rf ~/.cache/aia-evaluation
 
 ## Why a private upstream and a public installer?
 
-The pipeline code itself is in a private repo (`JetBrains/ai-assistant-pipelines`),
+The pipeline code lives in a private repo (`JetBrains/ai-assistant-pipelines`),
 which is why anything that touches it (the launcher source, the `.pyz`) needs
-GitHub auth. This installer repo lives in Space only so JB developers can
-fetch the bootstrap script without any prior auth — past the bootstrap step
-the same `GH_TOKEN` / `gh` session powers both install and runtime.
+GitHub auth. This installer repo (`dpaia/aia-evaluation`) is intentionally
+public so that anyone can fetch the bootstrap `install.sh` anonymously — past
+the bootstrap step the same `GH_TOKEN` / `gh` session powers both install and
+runtime.
