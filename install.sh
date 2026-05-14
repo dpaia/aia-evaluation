@@ -10,14 +10,14 @@
 #
 # Configuration (env):
 #   AIA_PREFIX   installation directory               (default: $HOME/.local/bin)
-#   AIA_BRANCH   branch to pull aia-evaluation.sh from (default: local-run)
+#   AIA_BRANCH   branch to pull aia-evaluation.sh from (default: launcher)
 #   AIA_REPO     upstream repo                         (default: JetBrains/ai-assistant-pipelines)
 #   GH_TOKEN     GitHub token (PAT or `gh auth token`); required.
 
 set -euo pipefail
 
 REPO="${AIA_REPO:-JetBrains/ai-assistant-pipelines}"
-BRANCH="${AIA_BRANCH:-local-run}"
+BRANCH="${AIA_BRANCH:-launcher}"
 LAUNCHER_PATH_IN_REPO="launcher/aia-evaluation.sh"
 PREFIX="${AIA_PREFIX:-$HOME/.local/bin}"
 TARGET="$PREFIX/aia-evaluation"

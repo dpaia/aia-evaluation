@@ -137,7 +137,7 @@ AIA_PREFIX=/usr/local/bin curl -fsSL https://raw.githubusercontent.com/dpaia/aia
 
 ### Pinning to a specific branch (for testing)
 
-The default branch (`local-run` for now) can be overridden:
+The default branch (`launcher` for now) can be overridden:
 
 ```bash
 AIA_BRANCH=main curl -fsSL https://raw.githubusercontent.com/dpaia/aia-evaluation/main/install.sh | bash
